@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
@@ -15,6 +15,8 @@ export class ProductsController {
     }
 
     @Post()
+    @HttpCode(HttpStatus.CREATED)
+    @Header('Cache-control', 'none')
     create(@Body() createProductDto: CreateProductDto): string {
         return `Title ${createProductDto.title} ${createProductDto.price}`
     }
